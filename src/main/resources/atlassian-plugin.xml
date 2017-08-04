@@ -1,0 +1,34 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="ReviewStateSynchronizer"/>
+    
+    <!-- publish our component -->
+    <component key="myPluginComponent" class="com.sdv.sync.reviewStateSynchronizer.impl.MyPluginComponentImpl" public="true">
+        <interface>com.sdv.sync.reviewStateSynchronizer.api.MyPluginComponent</interface>
+    </component>
+    
+    <component-import key="eventPublisher" interface="com.atlassian.event.api.EventPublisher"/>
+    <component key="eventListener" class="com.sdv.sync.reviewStateSynchronizer.api.ReviewStateEventListener">
+        <description>Class that processes the review state change events.</description>
+    </component>
+    
+    <!-- add our web resources -->
+    <web-resource key="ReviewStateSynchronizer-resources" name="ReviewStateSynchronizer Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="ReviewStateSynchronizer.css" location="/css/ReviewStateSynchronizer.css"/>
+        <resource type="download" name="ReviewStateSynchronizer.js" location="/js/ReviewStateSynchronizer.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>ReviewStateSynchronizer</context>
+    </web-resource>
+    
+</atlassian-plugin>
